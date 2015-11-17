@@ -46,31 +46,38 @@
 
 #define FXOSC   32e6
 
+//Standard-Function to be implemented by driver:
+//extern RFM69CW_Return_t rfm69cw_drv_spiTrx(uint8_t* pdata, uint8_t cnt, RFM69CW_drvInterfaceHandle_t interface);
+
+//If defined, a function for only transmitting spi data will be used for register writes
+//#define USE_TXONLY_FUNCTION
+//The following functions must be additionally implemented then:
+//extern RFM69CW_Return_t rfm69cw_drv_spiTx(uint8_t* pdata, uint8_t cnt, RFM69CW_drvInterfaceHandle_t interface);
+
 //Directly implement functions for RFM69CW register read/write
 //Omits one function call and use of stack resources. Use it whenever possible!
 //Functions to be implemented:
 //extern RFM69CW_Return_t rfm69cw_drv_spiReadReg(uint8_t adr, uint8_t* data, RFM69CW_drvInterfaceHandle_t interface);
 //extern RFM69CW_Return_t rfm69cw_drv_spiWriteReg(uint8_t adr, uint8_t data, RFM69CW_drvInterfaceHandle_t interface);
-#define USE_SPIDRV_REGISTER_FUNCTIONS
+//#define USE_SPIDRV_REGISTER_FUNCTIONS
 
 //Use burst read/writes for fifo read/write
 //Functions to be implemented:
 //extern RFM69CW_Return_t rfm69cw_drv_readBurstReg(uint8_t adr, uint8_t* data, uint8_t cnt, RFM69CW_drvInterfaceHandle_t interface);
 //extern RFM69CW_Return_t rfm69cw_drv_readBurstReg(uint8_t adr, uint8_t* data, uint8_t cnt, RFM69CW_drvInterfaceHandle_t interface);
-#define USE_BURST_OPERATIONS
+//#define USE_BURST_OPERATIONS
 
 //If functions above are not implemented, burst operations can be emulated by subsequent "normal" read/write operations
 //#define EMULATE_BURST_OPERATIONS
 
-
-//Use burst read/writes also for other operations (NOT IMPLEMENTED YET!)
-//Functions not necessary any more:
+//Use burst read/writes also for single data transfer operations (NOT IMPLEMENTED YET!)
+//#define USE_ONLY_BURST_OPERATIONS
+//Functions that will not be needed any more then:
 //extern RFM69CW_Return_t rfm69cw_drv_spiReadReg(uint8_t adr, uint8_t* data, RFM69CW_drvInterfaceHandle_t interface);
 //extern RFM69CW_Return_t rfm69cw_drv_spiWriteReg(uint8_t adr, uint8_t data, RFM69CW_drvInterfaceHandle_t interface);
-//#define USE_ONLY_BURST_OPERATIONS
 
-#define USE_TXONLY_FUNCTION
 
+//Advanced functions taking float arguments etc.:
 #define INCLUDE_FLOAT_CALC_FUNCTIONS
 #define INCLUDE_SPECIAL_FREQ_CALC_FUNCTIONS
 #define INCLUDE_SETRFFREQ_FUNCTION
