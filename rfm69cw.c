@@ -365,6 +365,13 @@ RFM69CW_Return_t RFM69CW_PacketEngineInit(RFM69CW_Handle_t* handle, RFM69CW_Pack
 	ret = WRITE_REG(REG_PayloadLength, RFM69CW_PacketEngineInitStruct->RFM69CW_PayloadLength, handle->ifHandle);
 	if(ret) return ret;
 
+
+	// *** Node and Broadcast address ***
+	ret = WRITE_REG(REG_NodeAdrs, RFM69CW_PacketEngineInitStruct->RFM69CW_NodeAddress, handle->ifHandle);
+	if(ret) return ret;
+	ret = WRITE_REG(REG_BroadcastAdrs, RFM69CW_PacketEngineInitStruct->RFM69CW_BroadcastAddress, handle->ifHandle);
+	if(ret) return ret;
+
 	// *** Fifo Threshold and Tx Start ***
 	regValTmp = 0x00;
 	regValTmp |= RFM69CW_PacketEngineInitStruct->RFM69CW_TxStartCondition << 7;
