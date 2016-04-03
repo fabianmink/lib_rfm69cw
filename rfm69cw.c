@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2014, 2015 Fabian Mink <fabian.mink@gmx.de>
+  Copyright (c) 2014-2016 Fabian Mink <fabian.mink@gmx.de>
   All rights reserved.
 
   Redistribution and use in source and binary forms, with or without
@@ -26,7 +26,7 @@
 /**
  * @file rfm69cw.c
  * @author Fabian Mink
- * @date 2015-01-29
+ * @date 2016-03-30
  * @brief RFM69CW Driver
  * @copyright BSD 2-Clause License
  *
@@ -377,6 +377,28 @@ RFM69CW_Return_t RFM69CW_PacketEngineInit(RFM69CW_Handle_t* handle, RFM69CW_Pack
 	regValTmp |= RFM69CW_PacketEngineInitStruct->RFM69CW_TxStartCondition << 7;
 	regValTmp |= RFM69CW_PacketEngineInitStruct->RFM69CW_FifoThreshold    << 0;
 	ret = WRITE_REG(REG_FiFoThresh, regValTmp, handle->ifHandle);
+	if(ret) return ret;
+
+	return(RFM69CW_Return_ERROR_NONE);
+}
+
+
+RFM69CW_Return_t RFM69CW_DioMappingInit(RFM69CW_Handle_t* handle, RFM69CW_DioMappingInit_t* RFM69CW_DioMappingInitStruct){
+	RFM69CW_Return_t ret;
+	uint8_t regValTmp;
+
+	regValTmp = 0x00;
+	regValTmp |= RFM69CW_DioMappingInitStruct->RFM69CW_Dio0Mapping << 6;
+	regValTmp |= RFM69CW_DioMappingInitStruct->RFM69CW_Dio1Mapping << 4;
+	regValTmp |= RFM69CW_DioMappingInitStruct->RFM69CW_Dio2Mapping << 2;
+	regValTmp |= RFM69CW_DioMappingInitStruct->RFM69CW_Dio3Mapping << 0;
+	ret = WRITE_REG(REG_DioMapping1, regValTmp, handle->ifHandle);
+	if(ret) return ret;
+
+	//todo: specify ClkOut
+	regValTmp = 0x07; //ClkOut = off
+	regValTmp |= RFM69CW_DioMappingInitStruct->RFM69CW_Dio5Mapping << 4;
+	ret = WRITE_REG(REG_DioMapping2, regValTmp, handle->ifHandle);
 	if(ret) return ret;
 
 	return(RFM69CW_Return_ERROR_NONE);

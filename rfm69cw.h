@@ -316,6 +316,27 @@ typedef struct {
 
 
 /**
+  * @brief   RFM69CW Dio Mapping Init structure definition
+  */
+typedef struct {
+	unsigned int RFM69CW_Dio0Mapping : 2;
+	unsigned int RFM69CW_Dio1Mapping : 2;
+	unsigned int RFM69CW_Dio2Mapping : 2;
+	unsigned int RFM69CW_Dio3Mapping : 2;
+	unsigned int RFM69CW_Dio5Mapping : 2;
+} RFM69CW_DioMappingInit_t;
+
+#define RFM69CW_Dio0Mapping_Rx_CrcOk          0
+#define RFM69CW_Dio0Mapping_Rx_PayloadReady   1
+#define RFM69CW_Dio0Mapping_Rx_SyncAddress    2
+#define RFM69CW_Dio0Mapping_Rx_SyncRssi       3
+
+#define RFM69CW_Dio0Mapping_Tx_PacketSent     0
+#define RFM69CW_Dio0Mapping_Tx_TxReady        1
+#define RFM69CW_Dio0Mapping_Tx_None           2
+#define RFM69CW_Dio0Mapping_Tx_PllLock        3
+
+/**
   * @brief   RFM69CW Handle structure definition
   */
 typedef struct  {
@@ -328,6 +349,7 @@ extern RFM69CW_Return_t RFM69CW_CommonInit(RFM69CW_Handle_t* handle, RFM69CW_Com
 extern RFM69CW_Return_t RFM69CW_TxInit(RFM69CW_Handle_t* handle, RFM69CW_TxInit_t* RFM69CW_TxInitStruct);
 extern RFM69CW_Return_t RFM69CW_RxInit(RFM69CW_Handle_t* handle, RFM69CW_RxInit_t* RFM69CW_RxInitStruct);
 extern RFM69CW_Return_t RFM69CW_PacketEngineInit(RFM69CW_Handle_t* handle, RFM69CW_PacketEngineInit_t* RFM69CW_PacketEngineInitStruct);
+extern RFM69CW_Return_t RFM69CW_DioMappingInit(RFM69CW_Handle_t* handle, RFM69CW_DioMappingInit_t* RFM69CW_DioMappingInitStruct);
 
 extern void RFM69CW_CommonStructInit(RFM69CW_CommonInit_t* RFM69CW_CommonInitStruct);
 extern void RFM69CW_TxStructInit(RFM69CW_TxInit_t* RFM69CW_TxInitStruct);
